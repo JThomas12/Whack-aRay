@@ -1,0 +1,50 @@
+// Base addresses of each port
+#define PortA       0x40004000
+#define PortB       0x40005000
+#define PortC       0x40006000
+#define PortD       0x40007000
+#define PortE       0x40024000
+#define PortF       0x40025000
+
+//  General-Purpose Input/Output Run Mode Clock Gating Control. Each bit corresponds to a Port.
+#define RCGCGPIO    0x400FE608
+#define ClocksA     0x01
+#define ClocksB     0x02
+#define ClocksC     0x04
+#define ClocksD     0x08
+#define ClocksE     0x10
+#define ClocksF     0x20
+
+// Define the bitmask for each pin
+#define pin0     0x01
+#define pin1     0x02
+#define pin2     0x04
+#define pin3     0x08
+#define pin4     0x10
+#define pin5     0x20
+#define pin6     0x40
+#define pin7     0x80
+
+//Other defines for code readability
+#define OUTPUT  1
+#define INPUT   0
+#define INTERRUPT    1
+#define NoINTERRUPT  0
+#define ON  1
+#define OFF 0
+
+// Offsets corresponding to registers we may need to configure
+#define GPIODATA    0x3FC   // pg662 : GPIO Data
+#define GPIODIR     0x400   // pg663 : GPIO Direction
+#define GPIOIS      ?????   // pg664 : GPIO Interrupt Sense
+#define GPIOIBE     ?????   // pg665 : GPIO Interrupt Both Edges
+#define GPIOIEV     ?????   // pg666 : GPIO Interrupt Event     -   0: falling edge or Low level is trigger.    1: rising edge or High level is trigger
+#define GPIOIM      ?????   // pg667 : GPIO Interrupt Mask      -   0: the pin is masked.                       1: the interrupt is sent to the controller
+#define GPIOICR     ?????   // pg670 : GPIO Interrupt Clear     -   0: no affect                                1: the corresponding interrupt is cleared
+#define GPIOAFSEL   0x420   // pg671 : GPIO Alternative Function Select - 0: pin functions as GPIO              1: Function as something else depending on port
+#define GPIOPUR     0x510   // pg677 : GPIO Pull-Up Select      -   0: turn off pull up resistor                1: turn on pull up for corresponding pin
+#define GPIOPDR     0x514   // pg679 : GPIO Pull-Down Select    -   0: turn off pull down resistor              1: turn on pull down for corresponding pin
+#define GPIODEN     0x51C   // pg682 : GPIO Digital Enable      -   0: disable digital functions                1: enable pin's digital functions
+#define GPIOLOCK    0x520   // pg684 : GPIO Lock. A write of the value 0x4C4F.434B unlocks the GPIO Commit (GPIOCR) register for write access.
+#define GPIOKEY     0x4C4F434B // pg684. Special key for the GPIOLOCK register
+#define GPIOCR      0x524   // pg685 : GPIO Commit              -   0: Corresponding GPIOAFSEL, GPIOPUR, GPIOPDR, or GPIODEN bits cannot be written. 1: They can
